@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">Toko Gitar Milenial</div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="login.html">Login</a></li>
+                <li class="nav-item"><a href="index.html">Produk</a></li>
+                <li class="nav-item"><a href="kontak.html">Kontak</a></li>
+                <li class="nav-item"><a href="tentang saya.html">Tentang Saya</a></li>
+                <li class="nav-item"><a href="pembelian.html">Pembelian</a></li>
+            </ul>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <div class="login-header">
+            <h2>Selamat Datang</h2>
+            <p>Silakan login untuk melanjutkan</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="remember-me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Ingat saya</label>
+            </div>
+            
+            <button type="submit" class="login-button" a href="index.html" >Login</button>
+        </form>
+        
+        <div class="login-footer">
+            <a href="index.html">Daftar Akun Baru</a>
+            <span>|</span>
+            <a href="#">Lupa Password?</a>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Contoh kredensial (untuk demonstrasi)
+            const validCredentials = {
+                'admin': 'admin123',
+                'user': 'user123'
+            };
+            
+            if (validCredentials[username] && validCredentials[username] === password) {
+                // Login berhasil
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', username);
+                window.location.href = 'index.html';
+            } else {
+                // Login gagal
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Username atau password salah!';
+            }
+        }
+
+        // Cek status login saat halaman dimuat
+        window.onload = function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'index.html';
+            }
+        };
+    </script>
+   
+</body>
+</html>
